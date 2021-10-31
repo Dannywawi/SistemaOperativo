@@ -208,7 +208,7 @@ int main(){
         cpu_burst = mis_tareas.at(i)->cantidad();
         
         for(int i=0;i<new_v.size();i++){
-            v_ordenado.push_back(pair(new_v.at(i),cpu_burst));
+            v_ordenado.push_back(make_pair(new_v.at(i), cpu_burst));
         }
 
         sort(v_ordenado.begin(), v_ordenado.end());
