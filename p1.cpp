@@ -2,7 +2,8 @@
 #include <vector>
 using namespace std;
 
-//Pude separar las actividades en dias, ya tengo la idea como ordenar las horas para impletar el calendario 
+
+//Marca un error en push back del pair, lo estoy viendo
 
 
 class tareas{
@@ -32,6 +33,26 @@ class tareas{
                 cout << this->dias.at(i) << " ";
             }
             cout << endl;
+        }
+
+        int cantidad(){
+            int cant = this->horas / this->dias.size();
+            return cant;
+        }
+
+        vector<int> ordenHoras2(){
+            vector<int> orden;
+            for(int i=0;i<this->dias.size();i++){
+ 
+                if (this->dias.at(i) == 0){
+                    cout << "Actividad dia lunes: " << this->actividad << endl;
+                    cout << "Hora de la actividad: " << this->horas_inicio.at(i) << endl;
+                    orden.push_back(this->horas_inicio.at(i));
+ 
+                }
+            }
+            
+            return orden;
         }
 
         void calendarizacionLunes(){
@@ -177,9 +198,25 @@ int main(){
         mis_tareas.at(i)->printinfo();
     }
 
+    vector<pair<int, int> > v_ordenado;
+    int cpu_burst;
+
     for(int i=0;i<mis_tareas.size();i++){
         
-        mis_tareas.at(i)->calendarizacionLunes();
+        vector<int> new_v;
+        new_v = mis_tareas.at(i)->ordenHoras2();
+        cpu_burst = mis_tareas.at(i)->cantidad();
+        
+        for(int i=0;i<new_v.size();i++){
+            v_ordenado.push_back(pair(new_v.at(i),cpu_burst));
+        }
+
+        sort(v_ordenado.begin(), v_ordenado.end());
+
+        for(int i=0;i<v_ordenado.size();i++){
+            cout << v_ordenado.at(i).first << "," << v_ordenado.at(i).second << " ";
+        }
+
     }
 
     for(int i=0;i<mis_tareas.size();i++){
